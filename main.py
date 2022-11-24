@@ -24,16 +24,16 @@ class Maze:
                 else:
                     self.maze[position] = "."
 
+        # just to add some variety to the start and target.
         if randint(0, 1):
             self.start_pos = (0, randint(1, self.height - 2))
             self.target_pos = (self.width - 1, randint(1, self.height - 2))
-            self.maze[self.start_pos] = self.START
-            self.maze[self.target_pos] = self.TARGET
         else:
             self.start_pos = (randint(1, self.width - 2), 0)
             self.target_pos = (randint(1, self.width - 2), self.height - 1)
-            self.maze[self.start_pos] = self.START
-            self.maze[self.target_pos] = self.TARGET
+
+        self.maze[self.start_pos] = self.START
+        self.maze[self.target_pos] = self.TARGET
 
         # fill the maze with walls!
         self.generate_interior_walls()
@@ -81,14 +81,14 @@ class Maze:
     def print_maze(self):
         for position in self.maze.keys():
             print("{}".format(self.maze[position]), end='')
-            if position[1] == self.width - 1:
+            if position[1] == self.height - 1:
                 print("")
 
     def generate_interior_walls(self, method='sparse'):
         if method == 'sparse':
             self.generate_interior_walls_sparse_blocks()
 
-    def generate_interior_walls_sparse_blocks(self, fill_percent=30):
+    def generate_interior_walls_sparse_blocks(self, fill_percent=20):
         """ partially fill the maze with sparse walls
         :param: fill_percent: how much of the total maze area to fill
         """
@@ -106,6 +106,6 @@ class Maze:
 
 if __name__ == '__main__':
     init_w = 10
-    init_h = 10
+    init_h = 20
     this_maze = Maze(init_w, init_h)
     this_maze.print_maze()
